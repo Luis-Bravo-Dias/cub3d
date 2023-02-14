@@ -6,7 +6,7 @@
 #    By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/13 12:06:25 by lleiria-          #+#    #+#              #
-#    Updated: 2023/02/13 17:00:19 by lleiria-         ###   ########.fr        #
+#    Updated: 2023/02/14 12:17:37 by lleiria-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ $(_OBJ)%.o: $(_SRC)%.c
 	$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
 	
 $(NAME): $(DEPS) $(_OBJ) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME) $(DEPS)
 
 #bonus:		$(SRCS_B) $(OBJS_B)
 #			$(CC) $(CFLAGS) $(SRCS_B) -o $(NAME_B)

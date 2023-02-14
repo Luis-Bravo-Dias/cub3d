@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 12:08:21 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/02/13 16:54:14 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:08:21 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <sys/errno.h>
-#include <math.h>
+# include <math.h>
 
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
