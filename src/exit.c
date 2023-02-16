@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:03:46 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/02/15 11:04:36 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:38:16 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_map(char ***mp)
 	int	i;
 
 	i = 0;
-	if (*mp);
+	if (*mp)
 	{
 		while ((*mp)[i])
 			free((*mp)[i++]);
@@ -29,6 +29,6 @@ void	error_exit(char *message)
 {
 	if (*mp())
 		free_map(mp());
-	printf("%d", message);
+	printf("%s", message);
 	exit(1);
 }
