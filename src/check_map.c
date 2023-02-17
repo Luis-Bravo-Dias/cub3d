@@ -6,18 +6,18 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:05:01 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/02/16 17:00:44 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:12:05 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-char	***mp(void)
-{
-	static char	**map;
+// char	***mp(void)
+// {
+// 	static char	**map;
 	
-	return (&map);
-}
+// 	return (&map);
+// }
 
 int	map_width(char	*map)
 {
@@ -86,67 +86,97 @@ int	all_elements(char **mp, int width)
 		return (0);
 }
 
-int	is_firstwall(char **mp, int i, int j)
-{
-	while (mp[j][i] != '\n' && mp[j][i] != '\0' && mp[j][i] != '1')
-	{
-		if (is_space(mp[j][i]))
-				i++;
-	}
-	while (mp[j][i] != '\n' && mp[j][i] != '\0')
-	{
-		if (mp[j][i] != '1')
-		{
-			printf("is not closed\n");
-			return(0);
-		}
-		i++;
-	}
-	return (1);
-}
-
-int	is_closed(char **mp, int width)
+t_map	only_map(char **mp, t_map map, int width)
 {
 	int i;
 	int	j;
 	
 	j = 0;
+	i = 0;
 	while(j < width)
 	{
 		i = 0;
-		while (mp[j][i] != '\n' && mp[j][i] != '\0')
+		while (mp[j][i] != '\0')
 		{
 			if (is_space(mp[j][i]))
 				i++;
-			if (is_element(mp, i, j))
+			else if (is_element(mp, i, j))
 			{
 				i = 0;
 				j++;
 			}
-			if (is_space(mp[j][i]))
-				i++;
-			else if (is_firstwall(mp, i, j))
-			{
-				printf("is closed\n");
+			else if (mp[j][i] == '1')
 				break ;
-			}
 			i++;
 		}
 		j++;
 	}
-	return (1);	
+	// printf("x = %d\ny = %d\n", map.x, map.y);
+	map.x = i;
+	map.y = j;
+	return (map);
 }
 
-int	checker(char *map, char ***mp)
+// int	is_firstwall(char **mp, int i, int j)
+// {
+// 	while (mp[j][i] != '\n' && mp[j][i] != '\0' && mp[j][i] != '1')
+// 	{
+// 		if (is_space(mp[j][i]))
+// 				i++;
+// 	}
+// 	while (mp[j][i] != '\n' && mp[j][i] != '\0')
+// 	{
+// 		if (mp[j][i] != '1')
+// 		{
+// 			printf("is not closed\n");
+// 			return(0);
+// 		}
+// 		i++;
+// 	}
+// 	return (1);
+// }
+
+// int	is_closed(char **mp, int width)
+// {
+// 	int i;
+// 	int	j;
+	
+// 	j = 0;
+// 	while(j < width)
+// 	{
+// 		i = 0;
+// 		while (mp[j][i] != '\n' && mp[j][i] != '\0')
+// 		{
+// 			if (is_space(mp[j][i]))
+// 				i++;
+// 			if (is_element(mp, i, j))
+// 			{
+// 				i = 0;
+// 				j++;
+// 			}
+// 			if (mp[j][i] == '1' && mp[j][i + 1] == '1'
+// 				&& (mp[j][i - 1] == ' ' || mp[j][i - 1] == '\t'))
+// 			{
+// 				printf("is closed\n");
+// 				break ;
+// 			}
+// 			i++;
+// 		}
+// 		j++;
+// 	}
+// 	return (1);	
+// }
+
+int	checker(char *mapa, char ***mp, t_map map)
 {
 	int	width;
 	int	fd;
 	int	i;
 
 	i = 0;
-	width = map_width(map);
+	width = map_width(mapa);
 	*mp = malloc(sizeof(char *) * (width + 1));
-	fd = open(map, O_RDONLY);
+	fd = open(mapa, O_RDONLY);
 	if (!(*mp) || fd == -1)
 		error_exit(strerror(errno));
 	(*mp)[i] = get_next_line(fd);
@@ -157,7 +187,10 @@ int	checker(char *map, char ***mp)
 	}
 	if (!all_elements((*mp), width))
 		error_exit("\e[1;91mError\nIncorret nbr of map elements\n\e[0m");
-	if (!is_closed((*mp), width + 1))
-		error_exit("\e[1;91mError\nMap is not closed\n\e[0m");
+	map = only_map((*mp), map, width);
+	printf("x = %d\ny = %d\n", map.x, map.y);
+	// if (check_anormalies())
+	// if (!is_closed((*mp), width + 1))
+	// 	error_exit("\e[1;91mError\nMap is not closed\n\e[0m");
 	return (0);
 }

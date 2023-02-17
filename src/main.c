@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 12:31:54 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/02/15 11:06:15 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:08:57 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,15 @@ void	check_file(char *file)
 
 int	main(int ac, char **av)
 {
+	t_map	map;
+	t_input	in;
+	
+	map.x = 0;
+	map.y = 0;
 	if (ac != 2)
 		printf("\e[1;91mError\nwrong number of arguments\n\e[0m");
 	check_file(av[1]);
-	checker(av[1], mp());
+	in = sort_data(av[1], mp(), in)
+	checker(av[1], mp(), map);
 	printf("Valid map\n");
 }
