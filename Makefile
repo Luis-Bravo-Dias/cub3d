@@ -6,7 +6,7 @@
 #    By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/13 12:06:25 by lleiria-          #+#    #+#              #
-#    Updated: 2023/02/17 16:31:51 by lleiria-         ###   ########.fr        #
+#    Updated: 2023/02/25 17:06:48 by lleiria-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CFLAGS		= -Wall -Wextra -Werror -pthread #-fsanitize=thread -g
 #MLXFLAGS	= -lmlx -framework OpenGL -framework AppKit
 RM			= rm -f
 
-NAME		=	cub3d
+NAME		=	cub3D
 
 DEPS		=	libft/libft.a get_next_line/get_next_line.a
 INCLUDE		=	-I cub3d.h

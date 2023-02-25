@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 16:09:34 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/02/24 16:58:37 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:05:11 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@
 // 	in = divide(in, width, map)
 // }
 
-int	is_space(char	c)
+int	is_space(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\v')
 		return (1);
@@ -116,15 +116,87 @@ t_input	in_init(t_input in)
 	return (in);
 }
 
-t_input	*sort_data(char	*file)
+int	divide_to_conquer(char *map_line, t_input *in, char **tmp_elms, char **tmp_map)
 {
-	t_input	*in;
-	int		fd;
+	int	j;
+	
+	tmp_map[in->height] = map_line;
+	tmp_elms[in->height] = malloc(sizeof(char) * ft_strlen(map_line));
+	if (!tmp_elms[in->height])
+	{
+		free(tmp_elms);
+		free(tmp_map);
+		return (0);
+	}
+	j = 0;
+	while (j < ft_strlen(map_line))
+	{
+		if (is_space(map_line[j]))
+			j++;
+		if (is_element(map_line, j))
+		{
+			tmp_elms[in->height] = map_line;
+			break ;
+		}
+		else if (is_map(map_line[j]))
+		{
+			tmp_map[in->height] = map_line;
+			break ;
+		}
+		j++;		
+	}
+	if (in->elems)
+		free(in->elems);
+	if (in->map)
+		free(in->map);
+	in->elems = tmp_elms;
+	in->map = tmp_map;
+	in->height++;
+	return (1);
+}
+
+int	read_file(int fd, t_input in)
+{
 	char	*map_line;
 	char	**tmp_elms;
 	char	**tmp_map;
 	int		i;
-	int		j;
+
+	while ((map_line = get_next_line(fd)) != NULL)
+	{
+		if (in->width == 0)
+			in->width = ft_strlen(map_line);
+		tmp_elms = malloc(sizeof(char *) * (in->height +1));
+		if (!tmp_elms)
+			return (0) ;
+		tmp_map = malloc(sizeof(char *) * (in->height +1));
+		if (!tmp_map)
+		{
+			free(tmp_elms);
+			return (0) ;
+		}
+		i = 0;
+		while (i < in->height)
+		{
+			tmp_elms[i] = in->elems[i];
+			tmp_map[i] = in->map[i];
+			i++;
+		}
+		if (!divide_to_conquer(map_line, in, tmp_elms, tmp_map))
+			return (0);
+	}
+	if (map_line == NULL && in->height == 0)
+	{
+		free(in);
+		return (0);
+	}
+	return (1);
+}
+
+t_input	*sort_data(char	*file)
+{
+	t_input	*in;
+	int		fd;
 
 	in = malloc(sizeof(t_input));
 	if (!in)
@@ -137,60 +209,7 @@ t_input	*sort_data(char	*file)
 		return (NULL);
 	}
 	in = in_init(in);
-	while ((map_line = get_next_line(fd)) != NULL)
-	{
-		if (in->width == 0)
-			in->width = ft_strlen(map_line);
-		tmp_elms = malloc(sizeof(char *) * (in->height +1));
-		if (!tmp_elms)
-			break ;
-		tmp_map = malloc(sizeof(char *) * (in->height +1));
-		if (!tmp_map)
-		{
-			free(tmp_elms);
-			break ;
-		}
-		i = 0;
-		while (i < in->height)
-		{
-			tmp_elms[i] = in->elems[i];
-			tmp_map[i] = in->map[i];
-			i++;
-		}
-		tmp_map[in->height] = map_line;
-		tmp_elms[in->height] = malloc(sizeof(char) * ft_strlen(map_line));
-		if (!tmp_elms[in->height])
-		{
-			free(tmp_elms);
-			free(tmp_map);
-			break ;
-		}
-		j = 0;
-		while (j < ft_strlen(map_line))
-		{
-			if (is_space(map_line[j]))
-				j++;
-			if (is_element(map_line, j))
-			{
-				tmp_elms[in->height] = map_line;
-				break ;
-			}
-			else if (is_map(map_line[j]))
-			{
-				tmp_map[in->height] = map_line;
-				break ;
-			}
-			j++;		
-		}
-		if (in->elems)
-			free(in->elems);
-		if (in->map)
-			free(in->map);
-		in->elems = tmp_elms;
-		in->map = tmp_map;
-		in->height++;
-	}
-	if (map_line == NULL && in->height == 0)
+	if (!read_file(fd, in))
 	{
 		free(in);
 		return (NULL);
