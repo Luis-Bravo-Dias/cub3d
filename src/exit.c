@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:03:46 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/02/16 12:38:16 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/03/01 12:37:47 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	free_map(char ***mp)
 
 void	error_exit(char *message)
 {
-	if (*mp())
-		free_map(mp());
+	// if (*mp())
+	// 	free_map(mp());
 	printf("%s", message);
 	exit(1);
 }
