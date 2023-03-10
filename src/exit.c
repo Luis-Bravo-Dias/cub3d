@@ -6,29 +6,36 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:03:46 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/03/01 12:37:47 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:23:34 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+void	free_array(char *str)
+{
+	if (str && *str)
+		free(str);
+}
 
-void	free_map(char ***mp)
+
+void	free_matrix(char **matrix)
 {
 	int	i;
 
 	i = 0;
-	if (*mp)
+	if (matrix)
 	{
-		while ((*mp)[i])
-			free((*mp)[i++]);
-		free(*mp);
+		while (matrix[i])
+		{
+			free_array(matrix[i])
+			i++
+		}
+		free(matrix)
 	}
 }
 
-void	error_exit(char *message)
+void	msg_error(char *message)
 {
-	// if (*mp())
-	// 	free_map(mp());
-	printf("%s", message);
-	exit(1);
+	ft_putendl_fd(message, 2);
+	return (1);
 }
