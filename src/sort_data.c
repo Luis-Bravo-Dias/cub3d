@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 16:09:34 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/03/14 10:56:10 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:46:13 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,10 @@ void	is_element(t_input *in, char *line)
 		in->C = ft_strdup(line + 2);
 }
 
-int	matrix_size(char **matrix)
-{
-	int	counter;
-
-	counter = 0;
-	while (matrix[counter])
-		counter++;
-	return (counter);
-}
-
 int	putt_elems(t_input *in, char **tmp)
 {
 	int	i;
-	
+
 	i = -1;
 	in->lines = matrix_size(tmp) - 6;
 	while (++i <= 5)
@@ -72,62 +62,16 @@ int	putt_elems(t_input *in, char **tmp)
 	return (0);
 }
 
-char	*ft_strdup_cub(const char *s1)
-{
-	char	*p;
-	size_t	n;
-	size_t	slen;
-
-	slen = ft_strlen(s1);
-	p = (char *)malloc(sizeof(char) * (slen + 1));
-	n = 0;
-	if (p == NULL)
-		return (NULL);
-	while (s1[n] != '\0' && s1[n] != '\n')
-	{
-		p[n] = s1[n];
-		n++;
-	}
-	p[n] = '\0';
-	return (p);
-}
-
-
-int	file_lines(char *file)
-{
-	int		counter;
-	int		fd;
-	char	*line;
-
-	counter = 0;
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-	{
-		msg_error(strerror(errno));
-		exit(2);
-	}
-	line = NULL;
-	while ((line = get_next_line(fd)))
-	{
-		counter++;
-		free(line);
-	}
-	if (line)
-		free(line);
-	close(fd);
-	return (counter);
-}
-
 int	sort_data(t_input *in, char *file)
 {
-	int	fd;
-	int	i;
+	int		fd;
+	int		i;
 	char	**tmp;
 	char	*map_line;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return(msg_error(strerror(errno)));
+		return (msg_error(strerror(errno)));
 	in->lines = file_lines(file);
 	tmp = malloc(sizeof(char *) * (in->lines + 1));
 	tmp[in->lines] = NULL;

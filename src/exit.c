@@ -6,17 +6,17 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:03:46 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/03/14 10:25:03 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:53:23 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
 void	free_array(char *str)
 {
 	if (str && *str)
 		free(str);
 }
-
 
 void	free_matrix(char **matrix)
 {

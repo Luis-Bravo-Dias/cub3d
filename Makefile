@@ -6,7 +6,7 @@
 #    By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/13 12:06:25 by lleiria-          #+#    #+#              #
-#    Updated: 2023/02/25 17:06:48 by lleiria-         ###   ########.fr        #
+#    Updated: 2023/03/14 11:50:14 by lleiria-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ INCLUDE		=	-I cub3d.h
 SRCS_		=	main.c \
 				exit.c \
 				check_map.c \
-				sort_data.c
+				sort_data.c \
+				parsing_utils.c
 
 SRCS		=	$(addprefix $(_SRC), $(SRCS_))
 

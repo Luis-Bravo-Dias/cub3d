@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 12:08:21 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/03/14 10:25:12 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:49:11 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
-
-#define MAX_LINE_LEN 10000
 
 typedef struct s_map
 {
@@ -57,5 +55,9 @@ int		checker(char *mapa, char ***mp, t_map map);
 //sort_data.c
 // t_input	*map_reader(char *file, t_input *in);
 int		sort_data(t_input *in, char *file);
+//parsing_utils.c
+int		matrix_size(char **matrix);
+char	*ft_strdup_cub(const char *s1);
+int		file_lines(char *file);
 
 #endif
