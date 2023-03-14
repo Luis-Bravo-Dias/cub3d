@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:03:46 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/03/10 17:23:34 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/03/14 10:25:03 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void	free_matrix(char **matrix)
 	{
 		while (matrix[i])
 		{
-			free_array(matrix[i])
-			i++
+			free_array(matrix[i]);
+			i++;
 		}
-		free(matrix)
+		free(matrix);
 	}
 }
 
-void	msg_error(char *message)
+int	msg_error(char *message)
 {
 	ft_putendl_fd(message, 2);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 16:09:34 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/03/10 17:34:47 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/03/14 10:56:10 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int	is_not_allright(t_input *in)
 
 void	is_element(t_input *in, char *line)
 {
-	if (!ft_strncmp(line, "NO", 3) && in->NO == NULL)
+	if (!ft_strncmp(line, "NO ", 3) && in->NO == NULL)
 		in->NO = ft_strdup(line + 3);
-	else if (!ft_strncmp(line, "SO", 3) && in->SO == NULL)
+	else if (!ft_strncmp(line, "SO ", 3) && in->SO == NULL)
 		in->SO = ft_strdup(line + 3);
-	else if (!ft_strncmp(line, "WE", 3) && in->WE == NULL)
+	else if (!ft_strncmp(line, "WE ", 3) && in->WE == NULL)
 		in->WE = ft_strdup(line + 3);
-	else if (!ft_strncmp(line, "EA", 3) && in->EA == NULL)
+	else if (!ft_strncmp(line, "EA ", 3) && in->EA == NULL)
 		in->EA = ft_strdup(line + 3);
 	else if (!ft_strncmp(line, "F ", 2) && in->F == NULL)
 		in->F = ft_strdup(line + 2);
@@ -41,7 +41,7 @@ int	matrix_size(char **matrix)
 	int	counter;
 
 	counter = 0;
-	while (matrix[i])
+	while (matrix[counter])
 		counter++;
 	return (counter);
 }
@@ -62,13 +62,14 @@ int	putt_elems(t_input *in, char **tmp)
 	in->map = malloc(sizeof(char **) * (in->lines + 1));
 	if (!in->map)
 		return (msg_error(strerror(errno)));
-	in->map[in->lines] == NULL;
+	in->map[in->lines] = NULL;
 	while (tmp[i] && i < in->lines + 6)
 	{
-		in->map[i - 6] == ft_strdup(tmp[i]);
+		in->map[i - 6] = ft_strdup(tmp[i]);
 		i++;
 	}
 	free_matrix(tmp);
+	return (0);
 }
 
 char	*ft_strdup_cub(const char *s1)
@@ -117,7 +118,7 @@ int	file_lines(char *file)
 	return (counter);
 }
 
-int	sort_data(t_input *in, char	*file)
+int	sort_data(t_input *in, char *file)
 {
 	int	fd;
 	int	i;
@@ -134,7 +135,7 @@ int	sort_data(t_input *in, char	*file)
 	map_line = get_next_line(fd);
 	while (map_line)
 	{
-		if (line[0] != '\n' && in->lines > 0)
+		if (map_line[0] != '\n' && in->lines > 0)
 		{
 			tmp[++i] = ft_strdup_cub(map_line);
 			in->lines--;
