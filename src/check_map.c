@@ -6,11 +6,71 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:05:01 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/03/01 12:55:14 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/03/15 17:06:46 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	is_space(char	c)
+{
+	if (c == ' ' || c == '\t' || c == '\v')
+		return (1);
+	return (0);
+}
+
+int	anormalies(char **map)
+{
+	int	i;
+	int	j;
+	
+	j = 0;
+	while (map[j])
+	{
+		i = 0;
+		while (map[j][i])
+		{
+			if (map[j][i] != '1' && map[j][i] != '0' && map[j][i] != 'N' && map[j][i] != 'S'
+				&& map[j][i] != 'W' && map[j][i] != 'E' && map[j][i] != ' '
+				&& map[j][i] != '\t' && map[j][i] != '\n')
+				return (1);
+			else
+				i++;
+		}
+		j++;
+	}
+	return (0);
+}
+
+int	top_closed(char *map_line)
+{
+	int	i;
+	
+	i = 0;
+	while(is_space(map_line[i]))
+			i++;
+	while(map_line[i])
+	{
+		if (map_line[i] != '1' && map_line[i] != '\n')
+			return (0);
+		else
+			i++;
+	}
+	return (1);
+}
+
+int	check_map(t_input *in)
+{
+	// int	i;
+	
+	// i = 0;
+	if (anormalies(in->map))
+		return(msg_error("\e[1;91mError\nAnormalies found in the map\n\e[0m"));
+	if (!top_closed(in->map[0]))
+		return(msg_error("\e[1;91mError\nMap not closed\n\e[0m"));
+	printf("MAP IS fineeeeee\n");
+	return (0);
+}
 
 // char	***mp(void)
 // {
@@ -40,12 +100,6 @@
 // 	return (lines);
 // }
 
-// int	is_space(char	c)
-// {
-// 	if (c == ' ' || c == '\t' || c == '\v')
-// 		return (1);
-// 	return (0);
-// }
 
 // int	is_element(char **mp, int i, int j)
 // {

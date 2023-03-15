@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 12:31:54 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/03/14 10:36:51 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/03/15 14:39:11 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int ac, char **av)
 	// lines = file_lines(av[1]);
 	// printf("%d lines\n", lines);
 	// check_file(av[1]);
-	if (sort_data(&in, av[1]))
+	if (sort_data(&in, av[1]) || check_map(&in))
 	{
 		liberate(&in);
 		return (1);
