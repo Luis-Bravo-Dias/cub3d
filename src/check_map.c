@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:05:01 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/03/15 17:06:46 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/03/16 17:28:45 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,62 @@ int	anormalies(char **map)
 	return (0);
 }
 
-int	top_closed(char *map_line)
+int	closed_extreme(char **map, int line)
 {
 	int	i;
-	
-	i = 0;
-	while(is_space(map_line[i]))
-			i++;
-	while(map_line[i])
+
+	i = -1;
+	while (map[line][++i])
 	{
-		if (map_line[i] != '1' && map_line[i] != '\n')
-			return (0);
-		else
-			i++;
-	}
-	return (1);
+		if (map[line][i] == '0' || map[line][i] == 'N'
+			|| map[line][i] == 'S' || map[line][i] == 'E' || map[line][i] == 'W')
+			{
+				if (i == 0 || i == (int)ft_strlen(map[line]) - 1)
+					return (1);
+			}
+	return (0);
 }
+
+int	is_closed(char **map)
+{
+	int	line;
+	int	error_found;
+	int	last_line;
+
+	line = -1;
+	error_found = 0;
+	last_line = 0;
+	while (map[last_line])
+		last_line++;
+	while (map[++line])
+	{
+		if (line == 0 || line == last_line - 1)
+			error_found += closed_extreme(map, line)
+	}
+}
+
+// int	closed_extreme(char **map)
+// {
+// 	int	i;
+// 	int	j;
+	
+// 	j = 0;
+// 	while (map[j])
+// 	{
+// 		i = 0;
+// 		while (map[0][i])
+// 		{
+// 			if (map[j][i] == '0' || map[j][i] == 'N' || map[j][i] == 'S'
+// 				|| map[j][i] == 'W' || map[j][i] == 'E')
+// 				return (1);
+// 			else
+// 				i++;
+// 		}
+// 		j++;
+// 	}
+// 	printf("%d linessssssssssssssssssssssssssssss\n", j);
+// 	return (0);
+// }
 
 int	check_map(t_input *in)
 {
@@ -66,7 +106,7 @@ int	check_map(t_input *in)
 	// i = 0;
 	if (anormalies(in->map))
 		return(msg_error("\e[1;91mError\nAnormalies found in the map\n\e[0m"));
-	if (!top_closed(in->map[0]))
+	if (!is_closed(in->map))
 		return(msg_error("\e[1;91mError\nMap not closed\n\e[0m"));
 	printf("MAP IS fineeeeee\n");
 	return (0);
