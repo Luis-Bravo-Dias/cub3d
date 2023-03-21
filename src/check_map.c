@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:05:01 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/03/20 12:20:36 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/03/21 15:24:44 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,65 @@ int	extreme_lines(char **map, int line)
 
 	i = -1;
 	while (map[line][++i])
-	{
 		if (map[line][i] == '0' || map[line][i] == 'N'
 			|| map[line][i] == 'S' || map[line][i] == 'E' || map[line][i] == 'W')
 					return (1);
 	return (0);
 }
 
-int	check_around(char **map, int y, int x)
+int	validate(char x, int is_wall)
 {
-	int	end;
+	if (is_wall == 1)
+	{
+		if (x != '1')
+			return (1);
+	}
+	else
+	{
+		if (x == '0' || x == '1' || x == 'N' || x == 'S'
+			|| x == 'E' || x == 'W')
+			return (0);
+		else
+			return (1);
+	}
+	return (0);
+}
 
-	end = (int)ft_strlen()
+int	check_borders(char **map, int y, int x)
+{
+	int	end_space;
+
+	end_space = (int)ft_strlen(map[y]) - 2;
+	if (x == 1)
+	{
+		if (validate(map[y][0], 1) || validate(map[y][2], 0)
+			|| validate(map[y + 1][1], 0) || validate(map[y - 1][1], 0))
+			return (1);
+	}
+	else if (x == end_space)
+	{
+		if (validate(map[y][x - 1], 0) || validate(map[y][x + 1], 1)
+			|| validate(map[y + 1][x], 0) || validate(map[y - 1][x], 0))
+			return (1);
+	}
+	return (0);
+}
+
+int	check_inside(char **map, int y, int x)
+{
+	if (x <= 1 || x >= (int)ft_strlen(map[y]) - 2)
+		return (0);
+	if (validate(map[y][x - 1], 0) || validate(map[y][x + 1], 0)
+			|| validate(map[y + 1][x], 0) || validate(map[y - 1][x], 0))
+			return (1);
+	return (0);
 }
 
 int	midle_lines(char **map, int line)
 {
 	int	i;
 
-	i = -1
+	i = -1;
 	while (map[line][++i])
 	{
 		if (map[line][i] == '0' || map[line][i] == 'N'
@@ -74,9 +114,13 @@ int	midle_lines(char **map, int line)
 		{
 				if (i == 0 || i == (int)ft_strlen(map[line]) - 1)
 					return (1);
-				if
+				if (check_borders(map, line, i))
+					return (1);
+				if (check_inside(map, line, i))
+					return (1);
 		}
 	}
+	return (0);
 }
 
 int	not_closed(char **map)
@@ -95,9 +139,11 @@ int	not_closed(char **map)
 		if (line == 0 || line == last_line - 1)
 			error_found += extreme_lines(map, line);
 		else
-			error_found += 
-			
+			error_found += midle_lines(map, line);
+		if (error_found != 0)
+			break;
 	}
+	return (error_found);
 }
 
 // int	closed_extreme(char **map)
