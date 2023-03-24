@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:05:01 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/03/21 15:24:44 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/03/24 15:39:43 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ int	validate(char x, int is_wall)
 	if (is_wall == 1)
 	{
 		if (x != '1')
+		{
+			printf("error in is wall char = %c\n", x);
 			return (1);
+		}
 	}
 	else
 	{
@@ -67,7 +70,10 @@ int	validate(char x, int is_wall)
 			|| x == 'E' || x == 'W')
 			return (0);
 		else
+		{
+			printf("error char = %c\n", x);
 			return (1);
+		}
 	}
 	return (0);
 }
@@ -98,7 +104,10 @@ int	check_inside(char **map, int y, int x)
 		return (0);
 	if (validate(map[y][x - 1], 0) || validate(map[y][x + 1], 0)
 			|| validate(map[y + 1][x], 0) || validate(map[y - 1][x], 0))
-			return (1);
+			{
+				printf("error in y%d x%d\n", y, x);
+				return (1);
+			}
 	return (0);
 }
 
@@ -117,7 +126,7 @@ int	midle_lines(char **map, int line)
 				if (check_borders(map, line, i))
 					return (1);
 				if (check_inside(map, line, i))
-					return (1);
+					return (msg_error("Aqui!!!\n"));
 		}
 	}
 	return (0);
