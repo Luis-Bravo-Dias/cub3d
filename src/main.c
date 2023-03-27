@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 12:31:54 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/03/15 14:39:11 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/03/27 12:50:22 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	check_file(char *file)
 {
 	int	end;
-	
+
 	end = ft_strlen(file) - 1;
 	if (file[end] != 'b' || file[end - 1] != 'u'
 		|| file[end - 2] != 'c' || file[end - 3] != '.')
@@ -58,7 +58,6 @@ void	liberate(t_input *in)
 
 int	main(int ac, char **av)
 {
-	// t_map	map;
 	t_input	in;
 	int		j;
 	// int		lines;

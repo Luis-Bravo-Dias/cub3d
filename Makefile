@@ -6,7 +6,7 @@
 #    By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/13 12:06:25 by lleiria-          #+#    #+#              #
-#    Updated: 2023/03/14 11:50:14 by lleiria-         ###   ########.fr        #
+#    Updated: 2023/03/27 14:45:17 by lleiria-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCS_		=	main.c \
 				exit.c \
 				check_map.c \
 				sort_data.c \
-				parsing_utils.c
+				parsing_utils.c \
+				check_map_utils.c
 
 SRCS		=	$(addprefix $(_SRC), $(SRCS_))
 
