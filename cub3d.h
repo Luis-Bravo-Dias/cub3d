@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 12:08:21 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/03/27 14:45:39 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:15:08 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,23 @@
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
 
-typedef struct s_map
+typedef struct s_player
 {
 	int	x;
 	int	y;
-}	t_map;
+}	t_player;
 
 typedef struct s_input
 {
-	char	*NO;
-	char	*SO;
-	char	*WE;
-	char	*EA;
-	char	*F;
-	char	*C;
-	char	**map;
-	int		lines;
+	char	*	NO;
+	char		*SO;
+	char		*WE;
+	char		*EA;
+	char		*F;
+	char		*C;
+	char		**map;
+	int			lines;
+	t_player	play;
 }	t_input;
 
 
@@ -55,6 +56,7 @@ int		check_map(t_input *in);
 int		anormalies(char **map);
 int		extreme_lines(char **map, int line);
 int		validate(char x, int is_wall);
+int		not_solo(t_input *in);
 //sort_data.c
 int		sort_data(t_input *in, char *file);
 //parsing_utils.c

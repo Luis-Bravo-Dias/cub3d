@@ -6,9 +6,11 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 14:41:48 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/03/27 14:43:03 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:16:16 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../cub3d.h"
 
 int	anormalies(char **map)
 {
@@ -61,4 +63,31 @@ int	validate(char x, int is_wall)
 			return (1);
 	}
 	return (0);
+}
+
+int	not_solo(t_input *in)
+{
+	int	x;
+	int	y;
+	int	counter;
+
+	y = -1;
+	counter = 0;
+	while (in->map[++y])
+	{
+		x = -1;
+		while (in->map[y][++x])
+		{
+			if (in->map[y][x] == 'N' || in->map[y][x] == 'S'
+				|| in->map[y][x] == 'E' || in->map[y][x] == 'W')
+			{
+				in->play.x = x;
+				in->play.y = y;
+				counter++;
+			}
+		}
+	}
+	if (counter == 1)
+		return (0);
+	return (1);
 }

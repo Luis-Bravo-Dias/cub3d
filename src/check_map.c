@@ -6,7 +6,7 @@
 /*   By: lleiria- <lleiria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:05:01 by lleiria-          #+#    #+#             */
-/*   Updated: 2023/03/27 14:42:58 by lleiria-         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:14:38 by lleiria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,12 @@ int	not_closed(char **map)
 
 int	check_map(t_input *in)
 {
-	// int	i;
-	
-	// i = 0;
 	if (anormalies(in->map))
 		return (msg_error("\e[1;91mError\nAnormalies found in the map\n\e[0m"));
 	if (not_closed(in->map))
 		return (msg_error("\e[1;91mError\nMap is not closed\n\e[0m"));
+	if (not_solo(in))
+		return (msg_error("\e[1;91mError\nThis map is not single player\n\e[0m"));
 	printf("MAP IS fineeeeee\n");
 	return (0);
 }
